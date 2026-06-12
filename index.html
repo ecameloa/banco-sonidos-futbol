@@ -1,1 +1,293 @@
-Hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Banco de Sonidos Futboleros</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#121212;
+    color:white;
+    margin:0;
+    padding:20px;
+}
+
+header{
+    position:sticky;
+    top:0;
+    background:#121212;
+    padding-bottom:15px;
+    z-index:100;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:5px;
+}
+
+.subtitulo{
+    text-align:center;
+    color:#aaa;
+    margin-bottom:15px;
+}
+
+#busqueda{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
+
+audio{
+    width:100%;
+    margin-top:15px;
+}
+
+h2{
+    margin-top:30px;
+    color:#00d26a;
+}
+
+.tarjeta{
+    background:#1f1f1f;
+    border-radius:12px;
+    padding:12px;
+    margin:10px 0;
+}
+
+.nombre{
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.acciones{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+button,
+a{
+    border:none;
+    border-radius:8px;
+    padding:10px 12px;
+    cursor:pointer;
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+}
+
+.play{
+    background:#0b8f4d;
+}
+
+.share{
+    background:#1d4ed8;
+}
+
+.download{
+    background:#6b7280;
+}
+
+.activo{
+    border:2px solid #00d26a;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>⚽ Banco de Sonidos Futboleros</h1>
+
+<div class="subtitulo">
+28 audios disponibles
+</div>
+
+<input
+id="busqueda"
+type="text"
+placeholder="Buscar sonido..."
+onkeyup="filtrar()">
+
+<audio id="player" controls></audio>
+
+</header>
+
+<h2>🎙️ Narradores y frases</h2>
+
+<div id="contenedor"></div>
+
+<script>
+
+const sonidos = [
+
+["📞 Comcel - Jorge Eliécer Torres","comcel_jorge_eliecer_t.mp3"],
+
+["⚽ Esa era la jugada - Jorge Eliécer Torres","esa_era_la_jugada_jorge_eliecer_t.mp3"],
+
+["😎 ¿Estás nítido? - Morales","estas_nitido_morales.mp3"],
+
+["🇨🇴 Gol Colombia - Eduardo Luis","gol_colombia_eduardo_luis.mp3"],
+
+["🇨🇴 Gol Colombia - Jorge Eliécer Torres","gol_colombia_jorge_eliecer_t.mp3"],
+
+["🇨🇴 Gol Colombia - Paché","gol_colombia_pache.mp3"],
+
+["🇨🇴 Gol Colombia - Jotas Mantilla","gol_colombia_primero_jotas_mantilla.mp3"],
+
+["🇨🇴 Gol Colombia - Tato Sanint","gol_colombia_tato_sanint.mp3"],
+
+["⚽ Gol genérico - Eduardo Luis","gol_generico_eduardo_luis.mp3"],
+
+["⚽ Gol genérico - Jorge Eliécer Torres","gol_generico_jorge_eliecer_t.mp3"],
+
+["⚽ Gol genérico - Morales","gol_generico_morales.mp3"],
+
+["⚽ Gol genérico - Paché","gol_generico_pache.mp3"],
+
+["🔥 Gol de Lucho Díaz - Morales","gol_luchodiaz_morales.mp3"],
+
+["🧤 No me diga más caballero","no_me_diga_mas_vinasco.mp3"],
+
+["🍟 Papas a la francesa","papas_a_la_francesa_eduardo_luis.mp3"],
+
+["🎵 15 minutos Pintuco","jingle_15_minutos_pintuco.mp3"],
+
+["🎵 Apertura Colombia","jingle_apertura_colombia_vinasco.mp3"],
+
+["🎵 Apertura Vinasco","jingle_apertura_vinasco.mp3"],
+
+["🐷 Carne de Cerdo","jingle_carne_cerdo.mp3"],
+
+["🏦 Conavi","jingle_conavi.mp3"],
+
+["🎶 Gol Caracol 2026","jingle_gol_caracol_2026_cancion.mp3"],
+
+["🎶 Gol Gol Gol Caracol","jingle_gol_caracol_cancion_tradicional.mp3"],
+
+["🎤 Cántame ese gol","jingle_gol_vinasco_cantameesegol.mp3"],
+
+["⚽ Se metió","jingle_gol_vinasco_semetio.mp3"],
+
+["🔔 La Campana","jingle_la_campana.mp3"],
+
+["📻 Nuestro Fútbol RCN","jingle_RCN_nuestro_futbol_radio.mp3"],
+
+["🏟️ Vamos al Estadio","jingle_vamos_al_estadio_RCN.mp3"],
+
+["⏱️ Tiempo de Juego","tiempo_de_juego.mp3"]
+
+];
+
+const contenedor = document.getElementById("contenedor");
+
+sonidos.forEach(([titulo,archivo])=>{
+
+const urlAudio = "audios/" + archivo;
+
+const tarjeta = document.createElement("div");
+
+tarjeta.className = "tarjeta";
+
+tarjeta.innerHTML = `
+<div class="nombre">${titulo}</div>
+
+<div class="acciones">
+
+<button class="play"
+onclick="reproducir('${archivo}', this)">
+▶ Reproducir
+</button>
+
+<button class="share"
+onclick="compartir('${urlAudio}')">
+📤 Compartir
+</button>
+
+<a class="download"
+href="${urlAudio}"
+download>
+⬇ Descargar
+</a>
+
+</div>
+`;
+
+contenedor.appendChild(tarjeta);
+
+});
+
+function reproducir(archivo, boton){
+
+document
+.querySelectorAll('.tarjeta')
+.forEach(t=>t.classList.remove('activo'));
+
+boton.closest('.tarjeta')
+.classList.add('activo');
+
+const player =
+document.getElementById('player');
+
+player.src = 'audios/' + archivo;
+
+player.play();
+}
+
+function compartir(urlAudio){
+
+const urlCompleta =
+window.location.origin +
+window.location.pathname.replace("index.html","") +
+urlAudio;
+
+if(navigator.share){
+
+navigator.share({
+title:'Banco de Sonidos Futboleros',
+url:urlCompleta
+});
+
+}else{
+
+navigator.clipboard.writeText(urlCompleta);
+
+alert("Enlace copiado al portapapeles");
+}
+}
+
+function filtrar(){
+
+let texto =
+document.getElementById("busqueda")
+.value
+.toLowerCase();
+
+document
+.querySelectorAll(".tarjeta")
+.forEach(tarjeta=>{
+
+tarjeta.style.display =
+tarjeta.innerText
+.toLowerCase()
+.includes(texto)
+? "block"
+: "none";
+
+});
+}
+
+</script>
+
+</body>
+</html>
