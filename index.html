@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Banco de Sonidos Futboleros</title>
+<title>⚽ Banco de Sonidos Futboleros</title>
 
 <style>
 
@@ -20,8 +21,8 @@ header{
     position:sticky;
     top:0;
     background:#121212;
-    padding-bottom:15px;
     z-index:100;
+    padding-bottom:15px;
 }
 
 h1{
@@ -29,9 +30,16 @@ h1{
     margin-bottom:5px;
 }
 
+.autor{
+    text-align:center;
+    color:#bdbdbd;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
 .subtitulo{
     text-align:center;
-    color:#aaa;
+    color:#9e9e9e;
     margin-bottom:15px;
 }
 
@@ -50,8 +58,10 @@ audio{
 }
 
 h2{
-    margin-top:30px;
     color:#00d26a;
+    margin-top:35px;
+    border-bottom:1px solid #333;
+    padding-bottom:5px;
 }
 
 .tarjeta{
@@ -62,7 +72,6 @@ h2{
 }
 
 .nombre{
-    font-size:16px;
     font-weight:bold;
     margin-bottom:10px;
 }
@@ -100,6 +109,15 @@ a{
     border:2px solid #00d26a;
 }
 
+.disclaimer{
+    margin-top:50px;
+    padding-top:25px;
+    border-top:1px solid #333;
+    color:#9e9e9e;
+    font-size:12px;
+    line-height:1.6;
+}
+
 </style>
 </head>
 
@@ -108,6 +126,10 @@ a{
 <header>
 
 <h1>⚽ Banco de Sonidos Futboleros</h1>
+
+<div class="autor">
+Creado por Familia Deportiva
+</div>
 
 <div class="subtitulo">
 28 audios disponibles
@@ -123,100 +145,141 @@ onkeyup="filtrar()">
 
 </header>
 
-<h2>🎙️ Narradores y frases</h2>
-
 <div id="contenedor"></div>
+
+<footer class="disclaimer">
+
+<p>
+Familia Deportiva no es propietario de los audios incluidos en esta colección.
+</p>
+
+<p>
+Los fragmentos aquí recopilados provienen de fuentes públicas disponibles en Internet y se presentan con fines recreativos, culturales y de preservación histórica para uso personal y familiar.
+</p>
+
+<p>
+Todas las marcas, nombres comerciales, narraciones, jingles, programas, emisoras, canales y demás elementos identificados pertenecen a sus respectivos propietarios y titulares de derechos.
+</p>
+
+<p>
+Este sitio no tiene afiliación oficial con Caracol Televisión, RCN Radio, Caracol Radio, Win Sports, William Vinasco Ché, Eduardo Luis, Carlos Alberto Morales, Jorge Eliécer Torres, Paché Andrade, Jotas Mantilla, Gustavo "Tato" Sanint ni con ninguna de las marcas o personas aquí mencionadas.
+</p>
+
+<p>
+Si algún titular de derechos considera que un contenido debe ser retirado, podrá solicitarlo y será atendido de buena fe.
+</p>
+
+<p>
+© Familia Deportiva
+</p>
+
+</footer>
 
 <script>
 
-const sonidos = [
+const secciones = [
 
+{
+titulo:"🇨🇴 Goles de la Selección Colombia",
+audios:[
+["🇨🇴 Grito de gol Colombia - Eduardo Luis","gol_colombia_eduardo_luis.mp3"],
+["🇨🇴 Grito de gol Colombia - Jorge Eliécer Torres","gol_colombia_jorge_eliecer_t.mp3"],
+["🇨🇴 Grito de gol Colombia - Paché Andrade","gol_colombia_pache.mp3"],
+["🇨🇴 Grito de gol Colombia - Jotas Mantilla","gol_colombia_primero_jotas_mantilla.mp3"],
+["🇨🇴 Grito de gol Colombia - Gustavo 'Tato' Sanint","gol_colombia_tato_sanint.mp3"]
+]
+},
+
+{
+titulo:"⚽ Gritos de Gol Legendarios",
+audios:[
+["⚽ Grito de gol - Eduardo Luis","gol_generico_eduardo_luis.mp3"],
+["⚽ Grito de gol - Jorge Eliécer Torres","gol_generico_jorge_eliecer_t.mp3"],
+["⚽ Grito de gol - Carlos Alberto Morales","gol_generico_morales.mp3"],
+["⚽ Grito de gol - Paché Andrade","gol_generico_pache.mp3"]
+]
+},
+
+{
+titulo:"🎙️ Frases Célebres de Narradores",
+audios:[
+["😎 ¡Estás nítido! - Carlos Alberto Morales","estas_nitido_morales.mp3"],
+["🔥 Gol de Lucho Díaz - Carlos Alberto Morales","gol_luchodiaz_morales.mp3"],
+["🍟 Papas a la francesa - Eduardo Luis","papas_a_la_francesa_eduardo_luis.mp3"],
+["🧤 No me diga más, caballero - William Vinasco Ché","no_me_diga_mas_vinasco.mp3"],
 ["📞 Comcel - Jorge Eliécer Torres","comcel_jorge_eliecer_t.mp3"],
+["⚽ Esa era la jugada - Jorge Eliécer Torres","esa_era_la_jugada_jorge_eliecer_t.mp3"]
+]
+},
 
-["⚽ Esa era la jugada - Jorge Eliécer Torres","esa_era_la_jugada_jorge_eliecer_t.mp3"],
-
-["😎 ¿Estás nítido? - Morales","estas_nitido_morales.mp3"],
-
-["🇨🇴 Gol Colombia - Eduardo Luis","gol_colombia_eduardo_luis.mp3"],
-
-["🇨🇴 Gol Colombia - Jorge Eliécer Torres","gol_colombia_jorge_eliecer_t.mp3"],
-
-["🇨🇴 Gol Colombia - Paché","gol_colombia_pache.mp3"],
-
-["🇨🇴 Gol Colombia - Jotas Mantilla","gol_colombia_primero_jotas_mantilla.mp3"],
-
-["🇨🇴 Gol Colombia - Tato Sanint","gol_colombia_tato_sanint.mp3"],
-
-["⚽ Gol genérico - Eduardo Luis","gol_generico_eduardo_luis.mp3"],
-
-["⚽ Gol genérico - Jorge Eliécer Torres","gol_generico_jorge_eliecer_t.mp3"],
-
-["⚽ Gol genérico - Morales","gol_generico_morales.mp3"],
-
-["⚽ Gol genérico - Paché","gol_generico_pache.mp3"],
-
-["🔥 Gol de Lucho Díaz - Morales","gol_luchodiaz_morales.mp3"],
-
-["🧤 No me diga más caballero","no_me_diga_mas_vinasco.mp3"],
-
-["🍟 Papas a la francesa","papas_a_la_francesa_eduardo_luis.mp3"],
-
-["🎵 15 minutos Pintuco","jingle_15_minutos_pintuco.mp3"],
-
-["🎵 Apertura Colombia","jingle_apertura_colombia_vinasco.mp3"],
-
+{
+titulo:"📻 William Vinasco Ché",
+audios:[
 ["🎵 Apertura Vinasco","jingle_apertura_vinasco.mp3"],
-
-["🐷 Carne de Cerdo","jingle_carne_cerdo.mp3"],
-
-["🏦 Conavi","jingle_conavi.mp3"],
-
-["🎶 Gol Caracol 2026","jingle_gol_caracol_2026_cancion.mp3"],
-
-["🎶 Gol Gol Gol Caracol","jingle_gol_caracol_cancion_tradicional.mp3"],
-
+["🎵 Apertura Colombia","jingle_apertura_colombia_vinasco.mp3"],
 ["🎤 Cántame ese gol","jingle_gol_vinasco_cantameesegol.mp3"],
+["⚽ Se metió","jingle_gol_vinasco_semetio.mp3"]
+]
+},
 
-["⚽ Se metió","jingle_gol_vinasco_semetio.mp3"],
-
-["🔔 La Campana","jingle_la_campana.mp3"],
-
+{
+titulo:"📺 Radio y Televisión Deportiva",
+audios:[
+["🎶 Gol Caracol 2026","jingle_gol_caracol_2026_cancion.mp3"],
+["🎶 Gol Gol Gol Caracol","jingle_gol_caracol_cancion_tradicional.mp3"],
 ["📻 Nuestro Fútbol RCN","jingle_RCN_nuestro_futbol_radio.mp3"],
-
 ["🏟️ Vamos al Estadio","jingle_vamos_al_estadio_RCN.mp3"],
-
 ["⏱️ Tiempo de Juego","tiempo_de_juego.mp3"]
+]
+},
+
+{
+titulo:"🏢 Cuñas Comerciales Históricas",
+audios:[
+["🎨 15 Minutos Pintuco","jingle_15_minutos_pintuco.mp3"],
+["🏦 Conavi","jingle_conavi.mp3"],
+["🐷 Carne de Cerdo","jingle_carne_cerdo.mp3"]
+]
+},
+
+{
+titulo:"🔔 Efectos y Ambiente",
+audios:[
+["🔔 La Campana","jingle_la_campana.mp3"]
+]
+}
 
 ];
 
 const contenedor = document.getElementById("contenedor");
 
-sonidos.forEach(([titulo,archivo])=>{
+secciones.forEach(seccion=>{
 
-const urlAudio = "audios/" + archivo;
+const titulo=document.createElement("h2");
+titulo.textContent=seccion.titulo;
+contenedor.appendChild(titulo);
 
-const tarjeta = document.createElement("div");
+seccion.audios.forEach(([nombre,archivo])=>{
 
-tarjeta.className = "tarjeta";
+const urlAudio="audios/"+archivo;
 
-tarjeta.innerHTML = `
-<div class="nombre">${titulo}</div>
+const tarjeta=document.createElement("div");
+tarjeta.className="tarjeta";
+
+tarjeta.innerHTML=`
+<div class="nombre">${nombre}</div>
 
 <div class="acciones">
 
-<button class="play"
-onclick="reproducir('${archivo}', this)">
+<button class="play" onclick="reproducir('${archivo}',this)">
 ▶ Reproducir
 </button>
 
-<button class="share"
-onclick="compartir('${urlAudio}')">
+<button class="share" onclick="compartir('${urlAudio}')">
 📤 Compartir
 </button>
 
-<a class="download"
-href="${urlAudio}"
-download>
+<a class="download" href="${urlAudio}" download>
 ⬇ Descargar
 </a>
 
@@ -227,28 +290,28 @@ contenedor.appendChild(tarjeta);
 
 });
 
-function reproducir(archivo, boton){
+});
+
+function reproducir(archivo,boton){
 
 document
 .querySelectorAll('.tarjeta')
 .forEach(t=>t.classList.remove('activo'));
 
-boton.closest('.tarjeta')
-.classList.add('activo');
+boton.closest('.tarjeta').classList.add('activo');
 
-const player =
-document.getElementById('player');
+const player=document.getElementById('player');
 
-player.src = 'audios/' + archivo;
-
+player.src='audios/'+archivo;
 player.play();
+
 }
 
 function compartir(urlAudio){
 
-const urlCompleta =
-window.location.origin +
-window.location.pathname.replace("index.html","") +
+const urlCompleta=
+window.location.origin+
+window.location.pathname.replace("index.html","")+
 urlAudio;
 
 if(navigator.share){
@@ -261,15 +324,16 @@ url:urlCompleta
 }else{
 
 navigator.clipboard.writeText(urlCompleta);
-
 alert("Enlace copiado al portapapeles");
+
 }
+
 }
 
 function filtrar(){
 
-let texto =
-document.getElementById("busqueda")
+const texto=document
+.getElementById("busqueda")
 .value
 .toLowerCase();
 
@@ -277,7 +341,7 @@ document
 .querySelectorAll(".tarjeta")
 .forEach(tarjeta=>{
 
-tarjeta.style.display =
+tarjeta.style.display=
 tarjeta.innerText
 .toLowerCase()
 .includes(texto)
@@ -285,9 +349,11 @@ tarjeta.innerText
 : "none";
 
 });
+
 }
 
 </script>
 
 </body>
 </html>
+```
